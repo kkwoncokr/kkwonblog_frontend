@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../components/header';
-import Menus from '../components/menus';
+import Header from '../components/common/header';
+import Menus from '../components/common/menus';
 import GlobalStyle from '../styles/globalstyle';
 import Router from './Route/router';
 
