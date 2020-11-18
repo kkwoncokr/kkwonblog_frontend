@@ -5,9 +5,13 @@ import App from './App';
 import {applyMiddleware, createStore} from 'redux';
 import {Provider} from 'react-redux';
 import rootReducer from './modules';
-import Logger from './middle/Logger';
+import logger from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(rootReducer, applyMiddleware(Logger));
+const store = createStore(
+              rootReducer, 
+              composeWithDevTools (applyMiddleware(logger))
+              );
 
 ReactDOM.render(
   <Provider store={store}>

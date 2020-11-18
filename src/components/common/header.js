@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from '../../styles/images/simbol.png';
 import Button from '@material-ui/core/Button';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { board_change } from '../../modules/menuchange';
 
@@ -31,8 +31,10 @@ const Menus = styled.article`
         transform:translateX(-50%);
         cursor: pointer;
     }
-    & > button {
+    & button {
         position:absolute;
+        top:50%;
+        transform:translateY(-50%);
         right:10px;
         border-radius:40px;
     }
@@ -49,7 +51,9 @@ const Header = ({history}) => {
         <MenuWrap>
             <Menus>
                <img src={logo} alt="로고" onClick={goHome}/>
-                <Button variant="outlined" color="primary">로그인</Button>
+                <Link to="/login">
+                    <Button variant="outlined" color="primary">로그인</Button>
+                </Link>
             </Menus>
 
         </MenuWrap>
