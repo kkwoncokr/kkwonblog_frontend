@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { board_change } from '../../modules/common/menuchange';
 import { logoutRequestAction } from '../../modules/user/user';
 
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+
 const MenuWrap = styled.header`
     width:100%;
     height:64px;
@@ -37,7 +40,16 @@ const Menus = styled.article`
         top:50%;
         transform:translateY(-50%);
         right:10px;
-        border-radius:40px;
+        border-radius:10px;
+        border:none;
+        background-color:#ccc;
+        color:#fff;
+        font-size:18px;
+        letter-spacing:-1px;
+    }
+    & button:hover {
+        background-color:#333;
+        border:none;
     }
 `;
 
@@ -65,6 +77,14 @@ const Header = ({history}) => {
                 ) 
                 : 
                 <>
+                <div style={{display:"flex",justifyContent:"center",justifyItems:"center"}}>
+                    <Avatar 
+                    shape="square" 
+                    style={{backgroundColor:"#333",textAlign:"center",color:"#fff", borderRadius:64,margin:"16px 10px",marginRight:10}} 
+                    size={32} 
+                    icon={<UserOutlined />} />
+                    <p style={{fontSize:16,color:"#333",lineHeight:"32px"}}><strong>{me.nickname}</strong>님</p>
+                </div>
                 <Button variant="outlined" color="primary" onClick={onLogOut}>로그아웃</Button>
                 </>
                 }

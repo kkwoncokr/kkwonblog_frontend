@@ -60,7 +60,7 @@ const LoginBox = styled.article`
         border-radius:10px;
         outline:none;
         cursor: pointer;
-        background-color:#3f51b5;
+        background-color:#2364AA;
         color:#fff;
         font-size:18px;
         letter-spacing:-1px;
@@ -90,7 +90,12 @@ const Login = () => {
             <div>
                 <label htmlFor="user-email">아이디</label>
                 <br/>
-                <Input name="user-email" type="email" value={email} onChange={onChangeEmail} required/>
+                <Input 
+                name="user-email" 
+                type="email" 
+                value={email} 
+                onChange={onChangeEmail}
+                required/>
             </div>
             <div>
             <label htmlFor="user-password">비밀번호</label>
