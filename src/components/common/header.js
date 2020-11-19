@@ -44,7 +44,7 @@ const Menus = styled.article`
         border:none;
         background-color:#ccc;
         color:#fff;
-        font-size:18px;
+        font-size:15px;
         letter-spacing:-1px;
     }
     & button:hover {
