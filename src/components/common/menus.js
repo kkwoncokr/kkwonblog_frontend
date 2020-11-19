@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useDispatch, useSelector } from 'react-redux';
-import { board_change, profile_change } from '../../modules/menuchange';
+import { board_change, profile_change } from '../../modules/common/menuchange';
 
 const MenusWrap = styled.section`
     width:100%;

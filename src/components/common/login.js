@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import logo from '../../styles/images/simbol.png';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import useInput from '../../hooks/useInput';
+import { useDispatch } from 'react-redux';
+import { loginRequestAction } from '../../modules/user/user';
+import { Form, Input, Button } from 'antd';
 
 
 const LoginWrap = styled.section`
@@ -30,40 +31,79 @@ const LoginBox = styled.article`
         margin:0 auto;
         width:40px;
     }
+    & div {
+        margin-bottom:30px;
+    }
+    & label {
+        margin-left:5px;
+        letter-spacing:-1px;
+    }
+    & input {
+        display:block;
+        width:100%;
+        height:40px;
+        padding:10px;
+        box-sizing:border-box;
+        font-size:16px;
+        border:none;
+        border-bottom:1px solid #eee;
+        outline:none;
+        transition:all 0.3s;
+    }
+    & input:focus {
+        border-bottom:2px solid #333;
+    }
+    & button {
+        width:100%;
+        height:60px;
+        border:none;
+        border-radius:10px;
+        outline:none;
+        cursor: pointer;
+        background-color:#3f51b5;
+        color:#fff;
+        font-size:18px;
+        letter-spacing:-1px;
+    }
 `;
-const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        width:'100%',
-        marginBottom:'20px',
-        letterSpacing:'-1px'
-      },
-      '& > Button': {
-          height:'56px',
-          backgroundColor:'#2364AA',
-          color:'#fff',
-          fontSize:'18px',
-          marginTop:20
-      },
-      '& > Button:hover':{
-          backgroundColor:'#fff',
-          border:'1px solid #2364aa',
-          color:'#2365aa'
-      },
-    },
-  }));
+
 
 const Login = () => {
-    const classes = useStyles();
+    const dispatch = useDispatch();
+    const [email,onChangeEmail] = useInput('');
+    const [password,onChangePassword] = useInput('');
+
+    const onSubmitForm = useCallback(()=> {
+        console.debug(email,password);
+        console.debug(loginRequestAction())
+        dispatch(loginRequestAction({email,password}))
+    },[email,password,dispatch])
     return(
         <LoginWrap>
             <LoginBox>
                 <h2><img src={logo} alt="로고" /></h2>
-                <form className={classes.root} noValidate autoComplete="off">
-                    <TextField id="outlined-basic" label="아이디" variant="outlined" autoFocus={true}/>
-                    <TextField id="outlined-basic" label="비밀번호" variant="outlined" type="password"/>
-                    <Button variant="contained">로그인</Button>
-                </form>
+                <Form
+                name="basic"
+                initialValues={{remember : true}}
+                onFinish={onSubmitForm}
+                >
+            <div>
+                <label htmlFor="user-email">아이디</label>
+                <br/>
+                <Input name="user-email" type="email" value={email} onChange={onChangeEmail} required/>
+            </div>
+            <div>
+            <label htmlFor="user-password">비밀번호</label>
+                <br/>
+                <Input 
+                name="user-password" 
+                value={password} 
+                type="password" 
+                onChange={onChangePassword} 
+                required/>
+            </div>
+            <Button type="primary" htmlType="submit">로그인</Button>
+                </Form>
             </LoginBox>
         </LoginWrap>
     );
