@@ -65,7 +65,7 @@ const Header = ({history}) => {
     const onLogOut = useCallback(()=> {
         dispatch(logoutRequestAction());
         dispatch(board_change());
-    },[])
+    },[dispatch])
     return(
         <MenuWrap>
             <Menus>

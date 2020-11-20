@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BoardCard from '../../components/board/card';
 import Grid from '@material-ui/core/Grid';
+import { useSelector } from 'react-redux';
 
 const BoardWrap = styled.section`
     width:100%;
@@ -14,34 +15,19 @@ const BoardWrap = styled.section`
 `;
 
 const Home = () => {
+    const { mainPosts } = useSelector((state) => state.post)
     return(
         <BoardWrap>
             <article>
                 <Grid container spacing={3}>
-                    <Grid item xs={3}>
-                    <BoardCard/>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <BoardCard/>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <BoardCard/>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <BoardCard/>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <BoardCard/>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <BoardCard/>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <BoardCard/>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <BoardCard/>
-                    </Grid>
+                    {mainPosts.map((v) =>{
+                        return (
+                        <Grid item xs={3} key={v.id}>
+                        <BoardCard post={v} key={v.id}/>
+                        </Grid>   
+                        );
+                    })
+                    }
                 </Grid>
             </article>
         </BoardWrap>

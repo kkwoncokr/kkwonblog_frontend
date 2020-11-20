@@ -18,26 +18,36 @@ const useStyles = makeStyles((theme) => ({
         boxSizing:'border-box',
 
     },
+    content2: {
+        display:'flex',
+        justifyContent:'space-between'
+
+    },
   }));
 
-const BoardCard = () => {
+const BoardCard = ({post}) => {
     const classes = useStyles();
+    console.debug(post.Images)
     return(
+        
         <Card className={classes.root}>
             <CardMedia
             className={classes.media}
-            image="https://material-ui.com/static/images/cards/paella.jpg"
+            image={post.Images[0].src}
             title="name"
             />
             <CardContent className={classes.content}>
-                <h2 style={{margin:0}}>title</h2>
-                <Typography variant="body2" color="textSecondary" component="p">
-                This impressive paella is a perfect party dish and a fun meal to cook together with your
-                guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                <h2 style={{marginTop:0,marginBottom:10}}>{post.head}</h2>
+                <Typography variant="body2" color="textSecondary" component="p" style={{height:80, overflow:"hidden"}}>
+                {post.content}
                 </Typography>
-                <p style={{fontSize:12,marginTop:"10px"}}>2020년 11월 12일</p>
+            </CardContent>
+            <CardContent className={classes.content2}>
+            <span style={{fontSize:12}}>2020년 11월 12일</span>
+            <span style={{fontSize:12}}>작성자 : <strong>{post.User.nickname}</strong></span>
             </CardContent>
         </Card>
+        
     );
 }
 
