@@ -7,12 +7,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: 320,
+        width: 300,
         overflow:"hidden"
     },
     media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
+        height: '180px',
+        // paddingTop: '56.25%', // 16:9
+        width:'100%',
         backgroundSize:'cover'
     },
     content: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const BoardCard = ({post,match}) => {
+const BoardCard = ({post}) => {
     const classes = useStyles();
 
     return(

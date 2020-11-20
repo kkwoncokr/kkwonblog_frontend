@@ -10,8 +10,8 @@ const List = () => {
         <>
         {mainPosts.map((v) =>{
             return (
-            <Grid item xs={3} key={v.id}>
-            <Link to={`detail/${v.id}`}>
+            <Grid item xs={2.3} key={v.id}>
+            <Link to={`post/${v.id}`}>
                 <BoardCard post={v} key={v.id}/>
             </Link>
             </Grid>   

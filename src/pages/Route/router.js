@@ -9,7 +9,7 @@ const Router = () => {
     return(
         <>
         <Route path="/" exact={true} component={Home}/>
-        <Route path="/detail/:id" component={BoardDetail}/>
+        <Route path="/post/:id" component={BoardDetail}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/login" component={SignIn} />
         </>
