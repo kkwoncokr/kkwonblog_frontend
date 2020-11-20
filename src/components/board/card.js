@@ -8,10 +8,12 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: 320,
+        overflow:"hidden"
     },
     media: {
         height: 0,
         paddingTop: '56.25%', // 16:9
+        backgroundSize:'cover'
     },
     content: {
         padding:'16px !important',
@@ -20,14 +22,15 @@ const useStyles = makeStyles((theme) => ({
     },
     content2: {
         display:'flex',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        fontSize:12
 
     },
   }));
 
-const BoardCard = ({post}) => {
+const BoardCard = ({post,match}) => {
     const classes = useStyles();
-    console.debug(post.Images)
+
     return(
         
         <Card className={classes.root}>
@@ -43,8 +46,8 @@ const BoardCard = ({post}) => {
                 </Typography>
             </CardContent>
             <CardContent className={classes.content2}>
-            <span style={{fontSize:12}}>2020년 11월 12일</span>
-            <span style={{fontSize:12}}>작성자 : <strong>{post.User.nickname}</strong></span>
+            <span>2020년 11월 12일</span>
+            <span>작성자 : <strong>{post.User.nickname}</strong></span>
             </CardContent>
         </Card>
         

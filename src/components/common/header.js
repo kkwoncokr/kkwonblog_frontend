@@ -17,6 +17,7 @@ const MenuWrap = styled.header`
     position:fixed;
     top:0;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 8px;
+    z-index:10001;
 
 `;
 const Menus = styled.article`
