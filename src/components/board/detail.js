@@ -24,6 +24,9 @@ const Post = styled.article`
         font-size:40px;
         letter-spacing:-2px;
         font-weight:800;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
     }
     & > p {
     }
