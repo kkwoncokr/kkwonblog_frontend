@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const BoardCard = ({post}) => {
     const classes = useStyles();
+    const ptn = /<\/?[^>]*>/gi;
     return(
         
         <Card className={classes.root}>
@@ -40,9 +41,9 @@ const BoardCard = ({post}) => {
             title="name"
             />
             <CardContent className={classes.content}>
-                <h2 style={{marginTop:0,marginBottom:10}}>{post.head}</h2>
+                <h2 style={{marginTop:0,marginBottom:10,overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap"}}>{post.head}</h2>
                 <Typography variant="body2" color="textSecondary" component="div" style={{height:80, overflow:"hidden"}}>
-                <div dangerouslySetInnerHTML={{__html: post.content}}></div>
+                {post.content.replace(ptn,"")}
                 </Typography>
             </CardContent>
             <CardContent className={classes.content2}>
