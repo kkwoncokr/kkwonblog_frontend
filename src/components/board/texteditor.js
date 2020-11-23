@@ -6,6 +6,7 @@ import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { useSelector } from 'react-redux';
 import { Input } from 'antd';
+import useInput from '../../hooks/useInput';
 
 const MyBlock = styled.div`
     width:100%;
@@ -48,25 +49,39 @@ const MyBlock = styled.div`
 const Left = styled.div`
       width: 50%;
       background-color:#fff;
+      padding:15px;
+      box-sizing:border-box;
+      border: 0.0625rem solid #d7e2eb;
+    border-radius: 0.75rem;
+`;
+const Right = styled.div`
+    width:50%;
+    background-color:#fff;
+    position: relative;
+    border: 0.0625rem solid #d7e2eb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    padding: 1.5rem;
+    box-sizing:border-box;
+    margin-left:5%;
+
+    .title {
+        font-size:42px;
+        font-weight:600;
+    }
 `;
 const IntroduceContent = styled.div`
-  position: relative;
-  border: 0.0625rem solid #d7e2eb;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  padding: 1.5rem;
-  width: 50%;
-  margin: 0 auto;
+
   margin-bottom: 4rem;
-  margin-left:5%;
-  background-color:#fff;
   `;
 
 const TextEditor = ({history}) => {
     const [editorState,setEditorState] = useState(EditorState.createEmpty());
+    const [editorTitle,setEditorTitle] = useInput('');
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
     }
+    console.debug(editorTitle)
     const { me } = useSelector((state)=> state.user);
 
     const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
@@ -81,7 +96,8 @@ const TextEditor = ({history}) => {
             <Left>
             <Input 
             className="head-class"
-            placeholder="제목"/>
+            placeholder="제목"
+            onChange={setEditorTitle}/>
             <Editor
             wrapperClassName="wrapper-class"
             editorClassName="editor"
@@ -100,9 +116,10 @@ const TextEditor = ({history}) => {
             onEditorStateChange={onEditorStateChange}
             />
             </Left>
-            <>
+            <Right>
+            <div className="title">{editorTitle}</div>
             <IntroduceContent dangerouslySetInnerHTML={{__html: editorToHtml}}/>
-            </>
+            </Right>
         </MyBlock>
     );
 }
