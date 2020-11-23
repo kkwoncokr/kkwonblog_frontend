@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import styled from 'styled-components';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-import { useSelector } from 'react-redux';
-import { Input } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { Input,Button } from 'antd';
 import useInput from '../../hooks/useInput';
+import { ADD_POST_REQUEST } from '../../modules/post/post'
 
 const MyBlock = styled.div`
     width:100%;
@@ -36,7 +37,7 @@ const MyBlock = styled.div`
     background-color:#fff;
     }
   .editor {
-    height: 500px !important;
+    height: 300px !important;
     border: 1px solid #f1f1f1 !important;
     padding: 5px !important;
     box-sizing:border-box;
@@ -44,6 +45,16 @@ const MyBlock = styled.div`
   }
   .toolbar-class {
     box-sizing:border-box;
+  }
+  .agree {
+      width:100%;
+      height:50px;
+    font-size:24px;
+    background-color:#ccc;
+    border:none;
+    color:#fff;
+    border-radius:10px;
+    cursor: pointer;
   }
 `;
 const Left = styled.div`
@@ -78,16 +89,34 @@ const IntroduceContent = styled.div`
 const TextEditor = ({history}) => {
     const [editorState,setEditorState] = useState(EditorState.createEmpty());
     const [editorTitle,setEditorTitle] = useInput('');
+    const dispatch = useDispatch();
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
     }
-    console.debug(editorTitle)
     const { me } = useSelector((state)=> state.user);
-
     const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
+    console.debug(editorTitle)
+    console.debug(editorToHtml)
+
+    const onClick = useCallback(() => {
+        if(!editorTitle) {
+         return alert('제목을 입력하세요')
+        } 
+        if (editorToHtml.length === 8) {
+            return alert('내용을 입력하세요')
+        } else {
+            return (dispatch({
+                type : ADD_POST_REQUEST,
+                data : {head : editorTitle, content: editorToHtml}
+            }),
+            alert('작성이 완료 되었습니다.'),
+            history.push('/'));
+        }
+    },[editorTitle,editorToHtml,history,dispatch])
     useEffect(()=> {
         if(!me) {
+            alert('로그인이 필요합니다.')
             history.push('/')
         }
     },[me,history])
@@ -115,6 +144,7 @@ const TextEditor = ({history}) => {
             editorState={editorState}
             onEditorStateChange={onEditorStateChange}
             />
+            <Button className="agree" type="primary" onClick={onClick}>작성</Button>
             </Left>
             <Right>
             <div className="title">{editorTitle}</div>

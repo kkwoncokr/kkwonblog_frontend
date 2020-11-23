@@ -1,8 +1,10 @@
 import faker from 'faker';
+import shortId from 'shortid';
+import produce from 'immer';
 
-const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
-const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
-const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
+export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
 export const initialState = {
     mainPosts:[{
@@ -33,29 +35,37 @@ export const initialState = {
     addPostLoading:false,
     addPostError:null
 }
-
-export default function post (state = initialState, action) {
-    switch(action.type) {
-        case LOAD_POST_REQUEST :
-            return {
-                ...state,
-                addPostLoading:true,
-            }
-        case LOAD_POST_SUCCESS :
-            return {
-                ...state,
-                addPostLoading:false,
-                addPostDone:true
-            }
-        case LOAD_POST_FAILURE :
-            return {
-                ...state,
-                addPostError:action.error
-            }
-        default:
-            return {
-                ...state
-            }
-    }
+const dummyPost = (data) => ({
+    id: 3,
+    head:data.head,
+    content: data.content,
+    User: {
+      id: 1,
+      nickname: 'kkwon',
+    },
+    Images: [{
+        src:faker.image.image()
+    }],
+    Comments: [],
+  });
+const post = (state = initialState, action) => {
+    return produce(state, (draft) => {
+        switch(action.type) {
+            case ADD_POST_REQUEST :
+                draft.addPostLoading = true;
+                break;
+            case ADD_POST_SUCCESS :
+                draft.addPostLoading = false;
+                draft.addPostDone = true;
+                draft.mainPosts.unshift(dummyPost(action.data));
+                break;
+            case ADD_POST_FAILURE :
+                draft.addPostLoading = false;
+                draft.addPostError = action.error;
+                break;
+            default:
+            break;
+        }
+    })
 }
-
+export default post;

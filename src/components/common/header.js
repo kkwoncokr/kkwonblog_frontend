@@ -55,7 +55,7 @@ const Menus = styled.article`
 `;
 
 const Header = ({history}) => {
-    const { me,logOutLoading } = useSelector((state) => state.user) 
+    const { me } = useSelector((state) => state.user) 
     //const changeMenu = useSelector((state) => state.change);
     const dispatch = useDispatch();
     const goHome = () => {
@@ -89,7 +89,7 @@ const Header = ({history}) => {
                         <Button style={{position:"absolute", top:"50%", left:120}}>글쓰기</Button>
                     </Link>
                 </div>
-                <Button variant="outlined" color="primary" onClick={onLogOut} loading={logOutLoading}>로그아웃</Button>
+                <Button variant="outlined" color="primary" onClick={onLogOut}>로그아웃</Button>
                 </>
                 }
             </Menus>

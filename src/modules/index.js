@@ -5,12 +5,14 @@ import post from './post/post';
 
 import { all,fork } from 'redux-saga/effects';
 import userSaga from './saga/user';
+import postSaga from './saga/post';
 
 const rootReducer = combineReducers({change,user,post});
 
 export function* rootSaga() {
     yield all([
         fork(userSaga),
+        fork(postSaga),
     ])
 }
 

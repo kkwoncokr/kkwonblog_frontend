@@ -33,21 +33,35 @@ const Post = styled.article`
     & > div {
         margin-bottom:20px;
     }
+    & > .notfound {
+        width:100%;
+        height:80vh;
+        line-height:80vh;
+        display:flex;
+        justify-content:center;
+        justify-items:center;
+        color:#666;
+        letter-spacing:-1px;
+    }
+    & > .notfound > p {
+        font-size:40px;
+    }
 `;
 
 const PostDetail = ({post}) => {
     return(
         <Wrap>
-            <Post>
-            <h2>{post.head}</h2>
-            <div>
-                <strong>{post.User.nickname}</strong>
-                <span style={{margin:"0 0.5rem"}}>·</span>
-                <span>2020년 11월 20일</span>
-            </div>
-            <img src={post.Images[0].src} alt={post.Image}/>
-            <p>{post.content}</p>
-            </Post>
+            {post ?
+            (<Post>
+                <h2>{post.head}</h2>
+                <div>
+                    <strong>{post.User.nickname}</strong>
+                    <span style={{margin:"0 0.5rem"}}>·</span>
+                    <span>2020년 11월 20일</span>
+                </div>
+                <img src={post.Images[0].src} alt={post.Image}/>
+                <p dangerouslySetInnerHTML={{__html : post.content }}></p>
+            </Post>):<Post><div className="notfound"><p>존재하지 않는 게시글 입니다.</p></div></Post>}
         </Wrap>
     );
 }
