@@ -85,7 +85,9 @@ const Header = ({history}) => {
                     size={32} 
                     icon={<UserOutlined />} />
                     <p style={{fontSize:16,color:"#333",lineHeight:"38px",marginRight:20}}><strong>{me.nickname}</strong>님</p>
-                    <Button style={{position:"absolute", top:"50%", left:120}}>글쓰기</Button>
+                    <Link to="/write">
+                        <Button style={{position:"absolute", top:"50%", left:120}}>글쓰기</Button>
+                    </Link>
                 </div>
                 <Button variant="outlined" color="primary" onClick={onLogOut}>로그아웃</Button>
                 </>
