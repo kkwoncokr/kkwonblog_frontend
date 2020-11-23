@@ -1,10 +1,10 @@
-const LOGIN_REQUEST = 'LOGIN_REQUEST';
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
 
 
@@ -27,14 +27,14 @@ const dummyUser = {
 
 export const loginRequestAction = (data) => {
     return {
-        type: LOGIN_SUCCESS,
+        type: LOGIN_REQUEST,
         data,
     }
 }
 
 export const logoutRequestAction = () => {
     return {
-        type: LOGOUT_SUCCESS,
+        type: LOGOUT_REQUEST,
     }
 }
 

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import logo from '../../styles/images/simbol.png';
 import useInput from '../../hooks/useInput';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginRequestAction } from '../../modules/user/user';
 import { Form, Input, Button } from 'antd';
 
@@ -72,6 +72,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const [email,onChangeEmail] = useInput('');
     const [password,onChangePassword] = useInput('');
+    const { logInLoading } = useSelector((state) => state.user);
 
     const onSubmitForm = useCallback(()=> {
         console.debug(email,password);
@@ -107,7 +108,7 @@ const Login = () => {
                 onChange={onChangePassword} 
                 required/>
             </div>
-            <Button type="primary" htmlType="submit">로그인</Button>
+            <Button type="primary" htmlType="submit" loading={logInLoading}>로그인</Button>
                 </Form>
             </LoginBox>
         </LoginWrap>
