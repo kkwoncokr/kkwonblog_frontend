@@ -1,10 +1,17 @@
 import faker from 'faker';
-import shortId from 'shortid';
 import produce from 'immer';
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
+export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
+export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
+
+export const removePost = () => ({
+    type:REMOVE_POST_REQUEST,
+    data:{PostId : post.id}
+})
 
 export const initialState = {
     mainPosts:[{
@@ -33,7 +40,10 @@ export const initialState = {
     imagePaths:[],
     addPostDone:false,
     addPostLoading:false,
-    addPostError:null
+    addPostError:null,
+    removePostDone:false,
+    removePostLoading:false,
+    removePostError:null,
 }
 const dummyPost = (data) => ({
     id: 3,
@@ -62,6 +72,18 @@ const post = (state = initialState, action) => {
             case ADD_POST_FAILURE :
                 draft.addPostLoading = false;
                 draft.addPostError = action.error;
+                break;
+            case REMOVE_POST_REQUEST :
+                draft.removePostLoading = true;
+                break;
+            case REMOVE_POST_SUCCESS :
+                draft.removePostLoading = false;
+                draft.removePostDone = true;
+                draft.mainPosts = draft.mainPosts.filter((v)=> v.id !== action.data.PostId);
+                break;
+            case REMOVE_POST_FAILURE :
+                draft.removePostLoading = false;
+                draft.removePostError = action.error;
                 break;
             default:
             break;

@@ -4,12 +4,12 @@ const PROFILE_CHANGE = 'PROFILE_CHANGE';
 export const board_change = () => ({type: BOARD_CHANGE});
 export const profile_change = () => ({type: PROFILE_CHANGE});
 
-const initialState = ({
+export const initialState = ({
     board : true,
     profile : false,
 });
 
-export default function change(state = initialState, action) {
+const change = (state = initialState, action) => {
     switch(action.type) {
         case BOARD_CHANGE:
             return{
@@ -27,3 +27,4 @@ export default function change(state = initialState, action) {
             return false;
     }
 }
+export default change;

@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { Button } from 'antd';
+import {removePost, REMOVE_POST_REQUEST}  from '../../modules/post/post';
+import { withRouter } from 'react-router-dom';
 
 const Wrap = styled.section`
     width:100%;
@@ -19,7 +23,7 @@ const Post = styled.article`
     border-radius:10px;
     box-shadow:rgba(0,0,0,0.08) 0px 0px 8px;
     color:#333;
-
+    position: relative;
     & > h2 {
         font-size:40px;
         letter-spacing:-2px;
@@ -50,8 +54,35 @@ const Post = styled.article`
         font-size:40px;
     }
 `;
+const ButtonWrap = styled.div`
+    position:absolute;
+    top:40px;
+    right:20px;
+`;
+const Buttons = styled(Button) `
+    width:80px;
+    height:35px;
+    font-size:15px;
+    background-color:#666;
+    color:#fff;
+    border:0;
+    border-radius:5px;
+    outline:none;
+    margin-right:10px;
+    cursor: pointer;
+`;
 
-const PostDetail = ({post}) => {
+const PostDetail = ({post,history}) => {
+    const { me } = useSelector((state) => state.user)
+    const {removePostLoading} = useSelector((state)=> state.post)
+    const dispatch = useDispatch();
+
+    const onRemove = useCallback(()=> {
+        dispatch({
+            type:REMOVE_POST_REQUEST,
+            data:{PostId : post.id}
+        })
+    },[])
     return(
         <Wrap>
             {post ?
@@ -64,9 +95,18 @@ const PostDetail = ({post}) => {
                 </div>
                 <img src={post.Images[0].src} alt={post.Image}/>
                 <p dangerouslySetInnerHTML={{__html : post.content }}></p>
-            </Post>):<Post><div className="notfound"><p>존재하지 않는 게시글 입니다.</p></div></Post>}
+                {me ?
+                (post.User.id === me.id ? 
+                (<ButtonWrap>
+                <Buttons type="primary">수정</Buttons>
+                <Buttons type="primary" onClick={onRemove} loading={removePostLoading}>삭제</Buttons>
+                </ButtonWrap>
+                ):null
+                ):null}
+            </Post>)
+            :<Post><div className="notfound"><p>존재하지 않는 게시글 입니다.</p></div></Post>}
         </Wrap>
     );
 }
 
-export default PostDetail;
+export default withRouter(PostDetail);

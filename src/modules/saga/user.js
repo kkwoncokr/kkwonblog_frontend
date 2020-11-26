@@ -2,8 +2,6 @@ import { all, takeLatest,fork,put,delay } from "redux-saga/effects";
 import {LOGIN_REQUEST,LOGIN_SUCCESS,LOGIN_FAILURE, 
     LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE
 } from '../user/user';
-
-
 function* login(action) {
     yield delay(1000);
     try {
@@ -34,7 +32,6 @@ function* logout(action) {
     }
 }
 
-
 function* watchLogin() {
     yield takeLatest(LOGIN_REQUEST, login)
 }
@@ -42,10 +39,9 @@ function* watchLogout() {
     yield takeLatest(LOGOUT_REQUEST, logout)
 }
 
-
 export default function* postSaga() {
     yield all([
         fork(watchLogin),
-        fork(watchLogout)
+        fork(watchLogout),
     ])
 }

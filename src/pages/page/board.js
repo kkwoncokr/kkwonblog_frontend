@@ -15,7 +15,6 @@ const BoardWrap = styled.section`
 `;
 
 const Home = () => {
-    
     return(
         <BoardWrap>
             <article>
