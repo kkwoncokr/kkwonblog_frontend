@@ -82,7 +82,8 @@ const PostDetail = ({post,history}) => {
             type:REMOVE_POST_REQUEST,
             data:{PostId : post.id}
         })
-    },[])
+        history.push("/")
+    },[history])
     return(
         <Wrap>
             {post ?

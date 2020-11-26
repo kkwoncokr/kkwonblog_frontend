@@ -24,7 +24,9 @@ const change = (state = initialState, action) => {
                 profile : true,
             }
         default:
-            return false;
+            return {
+                ...state,
+            }
     }
 }
 export default change;
