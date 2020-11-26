@@ -59,9 +59,6 @@ const Menu = () => {
     const onClickProfile = () => {
         dispatch(profile_change());
     }
-    useEffect(()=> {
-        dispatch(board_change());
-    },[dispatch])
     return(
         <MenusWrap>
             <Menus>

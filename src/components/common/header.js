@@ -59,13 +59,11 @@ const Header = ({history}) => {
     //const changeMenu = useSelector((state) => state.change);
     const dispatch = useDispatch();
     const goHome = () => {
-        dispatch(board_change());
         history.push('/')
     }
 
     const onLogOut = useCallback(()=> {
         dispatch(logoutRequestAction());
-        dispatch(board_change());
     },[dispatch])
     return(
         <MenuWrap>
